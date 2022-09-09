@@ -4,8 +4,8 @@ export const Show = ({Set, CardSet, setCardSet, SetName, setPlayCard, PlayCard})
 
   const handlePickUp = (item,index)=>{
       setPlayCard([...PlayCard,item])
-      setCardSet([...CardSet, CardSet[SetName].splice(index, 1)])
-    //   RemoveCard(SetName,index)
+      CardSet[SetName].splice(index, 1)
+      setCardSet(CardSet)
   }  
 
   return (

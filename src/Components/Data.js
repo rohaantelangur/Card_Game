@@ -1,4 +1,4 @@
-const All_cards_Og = [
+export var All_cards_Og = [
   // Black Spade
   {
     card: "1",
@@ -368,31 +368,3 @@ const All_cards_Og = [
     colour: "red",
   },
 ];
-
-var Set_A = [];
-var Set_B = [];
-var Set_C = [];
-var Set_D = [];
-var Set_E = [];
-
-
-export const SetData = async () => {
-  var All_cards = All_cards_Og;
-  
-  for (let i = 0; i < 52 && All_cards.length !== 0; i++) {
-    let Random = Math.floor(Math.random() * All_cards.length - 1 + 1);
-    let randomSet = Math.floor(Math.random() * 5 + 1);
-    if (randomSet === 1) Set_A.push(All_cards[Random]);
-    if (randomSet === 2) Set_B.push(All_cards[Random]);
-    if (randomSet === 3) Set_C.push(All_cards[Random]);
-    if (randomSet === 4) Set_D.push(All_cards[Random]);
-    if (randomSet === 5) Set_E.push(All_cards[Random]);
-    All_cards.splice(Random, 1);
-  }
-
-  let Data = await [Set_A, Set_B, Set_C, Set_D, Set_E];
-    console.log(Set_A.length+Set_B.length+Set_C.length+Set_D.length+Set_E.length,"data");
-  return Data;
-  
-};
-

@@ -1,20 +1,58 @@
 import "./App.css";
-import { SetData } from "./Components/Data";
+import { All_cards_Og } from "./Components/Data";
 import { DisplayCard } from "./Components/DisplayCard";
 import { Show } from "./Components/Show";
 import { useEffect, useState } from "react";
 
+var count=0
 function App() {
+  const [AllCards, setAllCards] = useState(All_cards_Og)
   const [CardSet, setCardSet] = useState([]);
   const [PlayCard, setPlayCard] = useState([]);
   const [Scores, setScores] = useState(0);
   const [gameOver, setgameOver] = useState(false);
-  const [reset, setreset] = useState(false)
+  console.log(AllCards.length,All_cards_Og.length,Date.now(),"AllCards");
+// console.log(CardSet,count, "CardSet");
+
+
+  const SetData = async (DataCards) => {
+    count++
+
+    // var All_cards = CardData;
+    var Set_A = [];
+    var Set_B = [];
+    var Set_C = [];
+    var Set_D = [];
+    var Set_E = [];
+    console.log("SetData",CardSet,DataCards.length,AllCards.length);
+    
+    for (let i = 0; i < 52 && DataCards.length !== 0; i++) {
+      let Random = Math.floor(Math.random() * DataCards.length - 1 + 1);
+      let randomSet = Math.floor(Math.random() * 5 + 1);
+      if (randomSet === 1) Set_A.push(DataCards[Random]);
+      if (randomSet === 2) Set_B.push(DataCards[Random]);
+      if (randomSet === 3) Set_C.push(DataCards[Random]);
+      if (randomSet === 4) Set_D.push(DataCards[Random]);
+      if (randomSet === 5) Set_E.push(DataCards[Random]);
+      DataCards.splice(Random, 1);
+    }
+  
+    let Data = await [Set_A, Set_B, Set_C, Set_D, Set_E];
+      console.log(Set_A.length+Set_B.length+Set_C.length+Set_D.length+Set_E.length,"Set Fun Data");
+      return Data;
+  };
 
   const RandamData = async () => {
-    let Data = await SetData();
-    console.log(Data);
-    setCardSet(Data);
+    if(CardSet[0]?.length  === 0 ||
+      CardSet[1]?.length  === 0 ||
+      CardSet[2]?.length  === 0 ||
+      CardSet[3]?.length  === 0 ||
+      CardSet[4]?.length || CardSet.length >= 0){
+        let Data = await SetData(AllCards.slice());
+        console.log(Data,AllCards,All_cards_Og,"RandamData Call");
+        console.log(Data,"RandomFun");
+        setCardSet(Data);
+      }
   };
 
   const CheckGameOver = () => {
@@ -47,17 +85,19 @@ function App() {
     }
   };
   const handleRestart = () => {
+    RandamData();
     setPlayCard([]);
     setScores(0);
-    setreset(!reset)
+    // setreset(!reset)
+
   };
   function handleQuit() {
     window.confirm("Are You Sure Want To Quit The Game");
   }
 
   useEffect(() => {
-    RandamData();
-  }, [reset]);
+      RandamData();
+  }, []);
 
   useEffect(() => {
     CheckScores();
@@ -71,11 +111,11 @@ function App() {
         <h1>Card Game</h1>
         <button onClick={handleQuit}>Quit</button>
       </div>
-      <div class={gameOver ? "overlay" : "overlayShow"}>
-        <div class="popup">
+      <div className={gameOver ? "overlay" : "overlayShow"}>
+        <div className="popup">
           <h2>You Score: {Scores}</h2>
           <span
-            class="close"
+            className="close"
             onClick={() => {
               setgameOver(false);
               handleRestart();

@@ -33,7 +33,16 @@
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   height: 15px;
 }
+.DisplayCardBox{
+  margin: auto;
+  width: 90%;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  height: 40px;
+}
 .CardBox:hover{
+  width: 100%;
+}
+.DisplayCardBox:hover{
   width: 100%;
 }
 img{
